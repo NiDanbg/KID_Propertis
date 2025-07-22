@@ -3,7 +3,7 @@ cls
 
 echo Add file to Git...
 git add .
-echo Готово.
+echo Done.
 echo.
 
 echo Pls, enter message to commid:
@@ -20,13 +20,13 @@ if "%commit_message%"=="" (
 echo.
 echo Save changes (commit)...
 git commit -m "%commit_message%"
-echo Готово.
+echo Done.
 echo.
 
 echo Upload changes to GitHub (push)...
 git push
-echo Готово.
+echo Done.
 echo.
 
-echo Всички операции бяха успешни!
+echo All operations are successful!
 pause

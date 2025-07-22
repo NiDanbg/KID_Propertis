@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Мета таговете ще се управляват от script.js -->
+    <title></title> 
+    <meta id="meta-description" name="description" content="">
+    <meta id="meta-keywords" name="keywords" content="">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+/* --- НОВИ, ПОДОБРЕНИ СТИЛОВЕ ЗА СТРАНИЦАТА ЗА ПОРЪЧКИ --- */
+.order-page-wrapper { display: flex; max-width: 1100px; margin: 40px auto; gap: 40px; padding: 20px; align-items: flex-start; }
+.order-summary { flex: 1; min-width: 320px; background: #f9f9f9; padding: 25px; border-radius: 8px; text-align: center; position: sticky; top: 100px; border: 1px solid #e0e0e0; }
+.order-summary img { max-width: 220px; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); margin-bottom: 1.5rem; }
+.order-summary h3 { font-size: 1.8rem; }
+.order-summary .price { font-size: 1.5rem; color: var(--gold-color); font-weight: bold; }
+
+.order-form-container { flex: 2; }
+.order-form-container h1 { text-align: center; }
+.form-description { text-align: center; margin-bottom: 2.5rem; color: #666; font-size: 1.1rem; }
+
+/* --- ОСНОВНИ СТИЛОВЕ ЗА ФОРМАТА --- */
+#order-form .form-group {
+    margin-bottom: 1.5rem; /* Увеличава разстоянието между полетата */
+}
+
+#order-form label {
+    display: block; /* Поставя етикета НАД полето */
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* Разстояние между етикета и полето */
+    color: #333;
+}
+
+#order-form input[type="text"],
+#order-form input[type="tel"],
+#order-form input[type="email"],
+#order-form input[type="number"],
+#order-form textarea,
+#order-form select {
+    width: 100%;
+    padding: 12px; /* Увеличава вътрешното отстояние */
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#order-form input:focus,
+#order-form textarea:focus,
+#order-form select:focus {
+    outline: none;
+    border-color: var(--gold-color); /* Златист акцент при клик */
+    box-shadow: 0 0 5px rgba(165, 142, 90, 0.5); /* Лека сянка */
+}
+
+#order-form textarea {
+    min-height: 100px; /* Увеличава височината на полето за адрес */
+    resize: vertical;
+}
+
+.payment-info { background: #e8f3e8; padding: 15px; border-radius: 5px; margin-bottom: 1.5rem; text-align: center; border: 1px solid #d4e8d4;}
+.payment-info p { margin: 0; }
+.payment-info strong { color: #3a6c3a; }
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    padding-top: 5px;
+}
+.radio-group label {
+    font-weight: normal; /* Маха удебеляването */
+    margin-right: 20px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.radio-group input[type="radio"] {
+    margin-right: 8px;
+}
+
+#form-status { margin-top: 1.5rem; font-weight: bold; text-align: center; font-size: 1.1rem; min-height: 1.5em; }
+.back-link-container { text-align: center; margin-bottom: 40px; }
+
+@media (max-width: 860px) { 
+    .order-page-wrapper { flex-direction: column; } 
+    .order-summary { position: static; width: 100%; margin-bottom: 2rem; } 
+}
+.price-container {
+    margin-top: 1.5rem; /* Добавя малко отстояние отгоре */
+    line-height: 1.4;   /* Подобрява четимостта */
+}
+.delivery-note {
+    display: block;     /* Поставя текста на нов ред */
+    font-size: 0.9em;   /* Прави шрифта по-малък */
+    color: #666;       /* Прави цвета по-малко натрапчив */
+    font-weight: normal;
+    margin-top: 5px;    /* Малко разстояние от цената */
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo"><img src="images/kid-properties-logo.png" alt="КИД Пропъртис Лого"></a>
+            <div class="lang-switcher">
+                <button id="lang-bg">BG</button><span>|</span><button id="lang-en">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="order-page-wrapper">
+            <aside class="order-summary">
+                <h3 data-lang-key="order_summary_title">Вашата поръчка:</h3>
+                <img src="images/almanac-cover.png" alt="Корица на Алманах">
+                <h4>Алманах "България от А до Я"</h4>
+                <div class="price-container">
+                  <p class="price" data-lang-key="order_price"></p>
+                   <small class="delivery-note" data-lang-key="delivery_note"></small>
+                </div>
+            </aside>
+
+            <div class="order-form-container">
+                <h1 data-lang-key="order_page_title">Формуляр за поръчка</h1>
+                <p class="form-description" data-lang-key="form_desc"></p>
+                
+                <form id="order-form">
+                    <div class="form-group"><label for="names" data-lang-key="form_names"></label><input type="text" id="names" name="names" required></div>
+                    <div class="form-group"><label for="phone" data-lang-key="form_phone"></label><input type="tel" id="phone" name="phone" required></div>
+                    <div class="form-group"><label for="email" data-lang-key="form_email"></label><input type="email" id="email" name="email" required></div>
+                    <div class="form-group"><label for="courier" data-lang-key="form_courier"></label><select id="courier" name="courier" required><option value="Еконт">Еконт</option><option value="Спиди">Спиди</option></select></div>
+                    <div class="form-group"><label for="address" data-lang-key="form_address"></label><textarea id="address" name="address" rows="3" required data-lang-key="form_address_placeholder"></textarea></div>
+                    <div class="form-group"><label for="quantity" data-lang-key="form_quantity"></label><input type="number" id="quantity" name="quantity" min="1" value="1" required></div>
+                    <div class="payment-info"><p><strong data-lang-key="form_payment_info"></strong> <span data-lang-key="form_payment_value"></span></p></div>
+                    <div class="form-group"><label data-lang-key="form_invoice"></label><div class="radio-group"><label><input type="radio" name="invoice" value="Да"> <span data-lang-key="form_invoice_yes"></span></label><label><input type="radio" name="invoice" value="Не" checked> <span data-lang-key="form_invoice_no"></span></label></div></div>
+                    <div class="form-group"><label for="note" data-lang-key="form_note"></label><textarea id="note" name="note" rows="2"></textarea></div>
+                    
+                    <input type="hidden" name="payment" value="Наложен платеж при доставка">
+                    
+                    <button type="submit" class="cta-button" style="width:100%;" data-lang-key="form_button"></button>
+                    <div id="form-status"></div>
+                </form>
+            </div>
+        </div>
+        <div class="back-link-container"><a href="index.html" class="back-link" data-lang-key="back_link"></a></div>
+    </main>
+
+     <footer>
+        <div class="container">
+            <div class="footer-main">
+                <img src="images/kid-properties-logo.png" alt="КиД Пропъртис Лого" class="footer-logo">
+                <p data-lang-key="footer_copyright">© 2025 КиД Пропъртис. Всички права запазени.</p>
+            </div>
+         </div>
+    </footer>
+    
+    <!-- Зареждаме ОБЩИЯ script.js -->
+    <script src="script.js"></script>
+
+    <!-- СКРИПТ САМО ЗА ТАЗИ СТРАНИЦА -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('order-form');
+            if (!form) return;
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const statusDiv = document.getElementById('form-status');
+                const currentLang = document.documentElement.lang || 'bg';
+
+                statusDiv.textContent = translations[currentLang].form_status_sending;
+                statusDiv.style.color = 'black';
+
+                const formData = new FormData(form);
+                const names = formData.get('names');
+                const phone = formData.get('phone');
+                const email = formData.get('email');
+                const courier = formData.get('courier');
+                const address = formData.get('address');
+                const quantity = formData.get('quantity');
+                const payment = formData.get('payment');
+                const invoice = formData.get('invoice');
+                const note = formData.get('note');
+
+                const entryIds = {
+                    names: "entry.89307205", phone: "entry.1722925538", email: "entry.697324484",
+                    courier: "entry.2145072218", address: "entry.293287593", quantity: "entry.742355568",
+                    payment: "entry.694080229", invoice: "entry.13526587", note: "entry.148651326"
+                };
+                const formUrl = `https://docs.google.com/forms/d/e/1FAIpQLSe_0q29Xmt3OxGZrHUjR6EK4WsOc3fLSnv8rVs4C43v60J9uw/formResponse?${entryIds.names}=${encodeURIComponent(names)}&${entryIds.phone}=${encodeURIComponent(phone)}&${entryIds.email}=${encodeURIComponent(email)}&${entryIds.courier}=${encodeURIComponent(courier)}&${entryIds.address}=${encodeURIComponent(address)}&${entryIds.quantity}=${encodeURIComponent(quantity)}&${entryIds.payment}=${encodeURIComponent(payment)}&${entryIds.invoice}=${encodeURIComponent(invoice)}&${entryIds.note}=${encodeURIComponent(note)}`;
+
+                try {
+                    await fetch(formUrl, { method: 'POST', mode: 'no-cors' });
+                    statusDiv.textContent = translations[currentLang].form_status_success;
+                    statusDiv.style.color = 'green';
+                    form.reset();
+                } catch (error) {
+                    statusDiv.textContent = translations[currentLang].form_status_error;
+                    statusDiv.style.color = 'red';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

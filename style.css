@@ -1,0 +1,348 @@
+/* --- Global Styles & Variables --- */
+:root {
+    --green-gradient: linear-gradient(to top, #65b165, #a3d0a3);
+    --gold-color: #a58e5a;
+    --dark-text: #333;
+    --light-text: #f8f9fa;
+    --background-light: #f8f9fa;
+    --background-white: #ffffff;
+    --font-primary: 'Playfair Display', serif;
+    --font-secondary: 'Roboto', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-secondary);
+    color: var(--dark-text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-primary);
+    color: var(--dark-text);
+}
+
+h1 { font-size: 3rem; margin-bottom: 1rem; }
+h2 { font-size: 2.5rem; text-align: center; margin-bottom: 2rem; }
+h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--gold-color); }
+p { margin-bottom: 1rem; }
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 25px;
+    background: var(--green-gradient);
+    color: var(--light-text);
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+}
+
+/* --- Header & Navigation --- */
+header {
+    background: var(--background-white);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo img { height: 50px; }
+nav ul { list-style: none; display: flex; }
+nav ul li { margin-left: 25px; }
+nav ul li a {
+    text-decoration: none;
+    color: var(--dark-text);
+    font-weight: bold;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+nav ul li a:hover {
+    border-color: var(--gold-color);
+}
+
+.lang-switcher button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+.lang-switcher button.active {
+    color: var(--gold-color);
+}
+
+/* --- Hero Section --- */
+#hero {
+    background: var(--background-light);
+    padding: 50px 0;
+    border-bottom: 5px solid;
+    border-image: var(--green-gradient) 1;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-text {
+    flex: 1;
+    padding-right: 2rem;
+}
+
+.hero-image {
+    flex: 1;
+    text-align: center;
+}
+
+/* --- ПОДОБРЕНИ СТИЛОВЕ ЗА 3D КНИГА --- */
+.hero-image {
+    perspective: 1500px;
+}
+
+.book-container {
+    width: 350px;
+    height: 500px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(-30deg) rotateX(10deg); /* Леко променен ъгъл за по-добра видимост */
+    transition: transform 0.5s ease-in-out;
+    cursor: pointer;
+    margin: 40px auto; /* Добавено отстояние отгоре за по-добра сянка */
+}
+
+.book-container:hover {
+    transform: rotateY(-20deg) rotateX(5deg) scale(1.05);
+}
+
+.book-cover {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    background-image: url('images/almanac-cover.png');
+    background-size: cover;
+    background-position: center;
+    /* По-мека и разсеяна сянка */
+    box-shadow: -10px 20px 40px rgba(0,0,0,0.3);
+}
+
+/* Стил за страниците (отстрани) - С ПОДОБРЕН КОНТРАСТ */
+.book-cover::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 100%; /* Променено от right: 0. Позиционираме го плътно до десния ръб. */
+    width: 30px;
+    height: calc(100% - 6px);
+    background: repeating-linear-gradient(to bottom, #f9f9f9, #f9f9f9 1px, #eee 1px, #eee 2px);
+    transform-origin: left; /* Променено от right. Завъртаме около левия ръб. */
+    transform: rotateY(90deg); /* Опростена трансформация. */
+    /* Сянката е обърната, за да е от вътрешната страна след новата ротация */
+    box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Стил за гръбчето на книгата - С КОРЕКЦИЯ НА ПОЗИЦИЯТА */
+.book-cover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32px; /* Леко по-широк, за да покрие разминаването */
+    height: 100%;
+    /* По-реалистичен градиент за гръбчето */
+    background: linear-gradient(to right, #3a6c3a, #4a7c4a);
+    transform-origin: left;
+    transform: rotateY(-90deg) translateX(-30px); /* Променен ред на трансформациите */
+}
+
+/* --- Content Sections --- */
+.content-section {
+    padding: 60px 0;
+    background: var(--background-white);
+}
+
+.content-section-light {
+    padding: 60px 0;
+    background: var(--background-light);
+}
+
+/* --- Excerpts/Cards Section --- */
+.cards-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background: var(--background-white);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    flex: 1;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+.card img {
+    max-width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.excerpts-footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+/* --- Story/Partners Section --- */
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.partner {
+    text-align: center;
+}
+
+.partner-logo {
+    height: 60px;
+    margin-bottom: 1rem;
+}
+
+/* --- Order Form Section --- */
+
+
+
+
+.form-footer {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* --- Footer --- */
+footer {
+    background: #333;
+    color: var(--light-text);
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer-logo {
+    height: 40px;
+    margin-bottom: 1rem;
+}
+
+.footer-partners {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #555;
+}
+
+.partner-logos-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+.partner-logos-footer img {
+    height: 40px;
+    filter: grayscale(100%) brightness(200%);
+}
+
+/* --- Нови стилове за бутона в навигацията --- */
+.cta-button-nav {
+    padding: 8px 15px !important;
+    background: var(--green-gradient);
+    color: var(--light-text) !important;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border-bottom: none !important;
+}
+
+.cta-button-nav:hover {
+    transform: scale(1.05);
+}
+
+
+/* --- Нови стилове за секцията за поръчки --- */
+#order-section .order-container {
+    text-align: center;
+    padding: 2rem;
+}
+
+#order-section .order-subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+}
+
+#order-section .large-button {
+    font-size: 1.5rem;
+    padding: 15px 40px;
+}
+
+/* --- ФИНАЛНИ СТИЛОВЕ ЗА ФУТЪРА --- */
+/* --- НОВИ, ОПРОСТЕНИ СТИЛОВЕ ЗА ФУТЪРА --- */
+footer {
+    background: #333;
+    color: #f8f9fa; /* Бял цвят за текста */
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer-logo {
+    height: 45px;
+    margin-bottom: 1rem;
+    /* Без филтри, логото се показва в оригиналния си вид */
+}
+
+
+
+

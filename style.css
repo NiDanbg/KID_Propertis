@@ -344,5 +344,90 @@ footer {
 }
 
 
+/* --- СТИЛОВЕ ЗА ХАМБУРГЕР МЕНЮТО --- */
+.hamburger {
+    display: none; /* Скрит по подразбиране на големи екрани */
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
 
+.hamburger .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--dark-text);
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* --- МОБИЛНА АДАПТАЦИЯ (RESPONSIVE DESIGN) --- */
+
+/* За таблети и по-малки устройства (до 992px) */
+@media (max-width: 992px) {
+    .hero-content {
+        flex-direction: column; /* Елементите се нареждат един под друг */
+        text-align: center;
+    }
+    .hero-text {
+        padding-right: 0;
+        margin-bottom: 2rem;
+    }
+    .book-container {
+        margin: 0 auto; /* Центриране на книгата */
+    }
+}
+
+/* За телефони (до 768px) */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+
+    /* Показваме хамбургера и скриваме навигацията */
+    .hamburger {
+        display: block;
+    }
+
+    nav {
+        position: absolute;
+        top: 70px; /* Височината на хедъра */
+        left: 0;
+        width: 100%;
+        background-color: var(--background-white);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transform: translateY(-150%); /* Скриваме менюто извън екрана */
+        transition: transform 0.3s ease-in-out;
+        padding: 1rem 0;
+    }
+
+    nav.active {
+        transform: translateY(0); /* Показваме менюто при клик */
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+    
+    .header-content {
+        padding: 10px 15px; /* Намаляваме отстоянието */
+    }
+    
+    /* Пренареждане на картите и партньорите */
+    .cards-container, .partners-grid {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .book-container {
+        width: 300px; /* Намаляваме размера на книгата */
+        height: 430px;
+    }
+}
 

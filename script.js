@@ -1,7 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+        const hamburger = document.getElementById('hamburger-menu');
+        const nav = document.querySelector('nav');
+
+        hamburger.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        });
+
    const translations = {
     en: {
+        meta_title: "Almanac 'Bulgaria from A to Z' - A Luxury Edition by KID Properties",
+        meta_description: "Discover the Almanac 'Bulgaria from A to Z' - a unique edition presenting Bulgarian history, culture, and achievements. The perfect gift and a jewel for any library. Order now!",
+        meta_keywords: "Bulgaria almanac, Bulgarian history, book about Bulgaria, luxury edition, KID Properties, gift, culture, heritage",
         nav_about: "About",
         nav_excerpts: "Excerpts",
         nav_story: "The Story",
@@ -20,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
         card_v_text: "You may have heard that the oldest worked gold in the world was found in Bulgaria and dates back to 4600-4200 BC!",
         excerpts_footer: "These are just a few of over 250 inspiring topics. Discover the rest!",
         story_title: "A Project Born of Pride and Creativity",
-        story_kid_title: "Initiator and IP Holder",
-        story_kid_text: "As the initiator and holder of all intellectual property, KID Properties turned a bold idea into reality. Our goal was to create not just a book, but a cultural legacy that inspires and educates.",
+        story_KiD_title: "Initiator and IP Holder",
+        story_KiD_text: "As the initiator and holder of all intellectual property, KiD Properties turned a bold idea into reality. Our goal was to create not just a book, but a cultural legacy that inspires and educates.",
         story_pride_title: "Conceptual and Inspirational Partner",
         story_pride_text: "At the heart of this almanac is the cause of the 'Bulgarian Pride' Foundation – to preserve and promote the brightest moments of our history and to revive national self-esteem.",
         story_atlas_title: "Main Sponsor",
@@ -31,11 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
         order_title_new: "Ready to Own this Gem?",
         order_subtitle_new: "Gift yourself knowledge, pride, and beauty. Every page is a journey.",
         order_button_new: "PROCEED TO ORDER PAGE",
-        form_footer: "Orders are processed by KID Properties. Thank you for supporting Bulgarian culture!",
-        footer_copyright: "© 2024 KID Properties. All rights reserved.",
+        form_footer: "Orders are processed by KiD Properties. Thank you for supporting Bulgarian culture!",
+        footer_copyright: "© 2024 KiD Properties. All rights reserved.",
         footer_partners_text: "In partnership with:",
     },
     bg: {
+        meta_title: "Алманах 'България от А до Я' - Луксозно издание от КИД Пропъртис",
+        meta_description: "Открийте Алманах 'България от А до Я' - уникално издание, представящо българската история, култура и достижения. Идеален подарък и бижу за всяка библиотека. Поръчайте сега!",
+        meta_keywords: "алманах България, българска история, книга за България, луксозно издание, КИД Пропъртис, подарък, култура, наследство",
         nav_about: "За Алманаха",
         nav_excerpts: "Откъси",
         nav_story: "Историята зад проекта",
@@ -54,8 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
         card_v_text: "Може би сте чули, че най-старото обработено злато в света е открито в България и датира от 4600-4200 г. пр.Хр.!",
         excerpts_footer: "Това са само част от над 250 вдъхновяващи теми. Открийте останалите!",
         story_title: "Един проект, роден от гордост и съзидателност",
-        story_kid_title: "Инициатор и Носител на правата",
-        story_kid_text: "Като инициатор и носител на цялата интелектуална собственост, КИД Пропъртис превърна една смела идея в реалност. Нашата цел беше да създадем не просто книга, а културно наследство, което да вдъхновява и образова.",
+        story_KiD_title: "Инициатор и Носител на правата",
+        story_KiD_text: "Като инициатор и носител на цялата интелектуална собственост, КиД Пропъртис превърна една смела идея в реалност. Нашата цел беше да създадем не просто книга, а културно наследство, което да вдъхновява и образова.",
         story_pride_title: "Идеен Носител и Вдъхновител",
         story_pride_text: "В основата на този алманах стои каузата на Фондация „Българска гордост“ – да съхрани и популяризира най-светлите моменти от нашата история и да възроди националното самочувствие.",
         story_atlas_title: "Основен Спонсор",
@@ -65,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
         order_title_new: "Готови ли сте да притежавате това бижу?",
         order_subtitle_new: "Направете си подарък знание, гордост и красота. Всяка страница е пътешествие.",
         order_button_new: "КЪМ СТРАНИЦАТА ЗА ПОРЪЧКИ",
-        form_footer: "Поръчките се обработват от КИД Пропъртис. Благодарим ви, че подкрепяте българската култура!",
-        footer_copyright: "© 2025 КИД Пропъртис. Всички права запазени.",
+        form_footer: "Поръчките се обработват от КиД Пропъртис. Благодарим ви, че подкрепяте българската култура!",
+        footer_copyright: "© 2025 КиД Пропъртис. Всички права запазени.",
         footer_partners_text: "В партньорство с:",
     }
 };
@@ -75,6 +88,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const langEnBtn = document.getElementById('lang-en');
 
     const setLanguage = (lang) => {
+        if (translations[lang]) {
+        document.title = translations[lang].meta_title;
+        const metaDescription = document.getElementById('meta-description');
+        const metaKeywords = document.getElementById('meta-keywords');
+        
+        if (metaDescription) {
+            metaDescription.setAttribute('content', translations[lang].meta_description);
+        }
+        if (metaKeywords) {
+            metaKeywords.setAttribute('content', translations[lang].meta_keywords);
+        }
+    }
+
+
         document.documentElement.lang = lang;
         const elements = document.querySelectorAll('[data-lang-key]');
         elements.forEach(el => {
